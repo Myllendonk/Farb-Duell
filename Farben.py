@@ -168,10 +168,15 @@ st.write("")
 st.markdown("---")
 st.markdown("### Datenverwaltung")
 
-df = pd.DataFrame(
-    sorted(scores.items(), key=lambda x: x[1], reverse=True),
-    columns=["Farbe", "Punkte"]
-)
+df = pd.DataFrame([
+    {
+        "Farbe": color,
+        "Siege": data[color]["wins"],
+        "Duelle": data[color]["duels"],
+        "Quote": data[color]["wins"] / data[color]["duels"] if data[color]["duels"] > 0 else 0
+    }
+    for color in colors
+])
 
 csv = df.to_csv(index=False).encode("utf-8")
 
