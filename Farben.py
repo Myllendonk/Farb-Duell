@@ -13,6 +13,13 @@ st.set_option("client.showErrorDetails", False)
 st.set_page_config(layout="wide")
 
 st.title("Dss große Häkelrunden Farb-Duell")
+st.markdown("""
+<script>
+document.addEventListener("click", function() {
+    document.activeElement.blur();
+});
+</script>
+""", unsafe_allow_html=True)
 show_name = st.checkbox("Farbname anzeigen", value=True)
 # ---------- XKCD Farben laden ----------
 colors = [c.replace("xkcd:", "") for c in mcolors.XKCD_COLORS.keys()]
