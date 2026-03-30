@@ -139,26 +139,25 @@ if st.session_state.show_ranking:
 
 # sortieren nach Quote
 ranking = sorted(ranking, key=lambda x: x[3], reverse=True)
-    ranking = sorted(scores.items(), key=lambda x: x[1], reverse=True)
 
-    for i, (color, wins, duels, ratio) in enumerate(ranking, 1)
-        hex_color = mcolors.XKCD_COLORS["xkcd:" + color]
-       st.markdown(
-            f"""
-            <div style="display:flex; align-items:center; gap:15px; margin-bottom:8px;">
-                <div style="
-                    width:25px;
-                    height:25px;
-                    background-color:{hex_color};
-                    border-radius:6px;
-                    border:1px solid black;
-                "></div>
+for i, (color, wins, duels, ratio) in enumerate(ranking, 1)
+    hex_color = mcolors.XKCD_COLORS["xkcd:" + color]
+   st.markdown(
+        f"""
+        <div style="display:flex; align-items:center; gap:15px; margin-bottom:8px;">
+            <div style="
+                width:25px;
+                height:25px;
+                background-color:{hex_color};
+                border-radius:6px;
+                border:1px solid black;
+            "></div>
 
-                    {i}. {color} – {wins} Punkte – Gewinn-Quote: {ratio} 
-            </div>
-            """,           
-            unsafe_allow_html=True
-        )
+                {i}. {color} – {wins} Punkte – Gewinn-Quote: {ratio} 
+        </div>
+        """,           
+        unsafe_allow_html=True
+    )
 
 st.write("")
 st.write("")
