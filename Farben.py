@@ -212,13 +212,6 @@ else:
 
 # ---------- Ranking ----------
 if st.session_state.show_ranking:
-    st.markdown(
-    f'<p style="color:{mcolors.XKCD_COLORS["xkcd:" + ranking[-1][0]]}; font-size:22px;">'
-    f'Das ist laut unserer Umfrage die hässlichste Farbe 😄'
-    f'</p>',
-    unsafe_allow_html=True
-    )
-    st.subheader("Aktuelles Ranking")
     ranking = []
 
     for color in colors:
@@ -234,7 +227,13 @@ if st.session_state.show_ranking:
 
     # sortieren nach Quote
     ranking = sorted(ranking, key=lambda x: (x[1], x[3]), reverse=True)
-    
+    st.markdown(
+    f'<p style="color:{mcolors.XKCD_COLORS["xkcd:" + ranking[-1][0]]}; font-size:22px;">'
+    f'Das ist laut unserer Umfrage die hässlichste Farbe 😄'
+    f'</p>',
+    unsafe_allow_html=True
+    )
+    st.subheader("Aktuelles Ranking")
     for i, (color, wins, duels, ratio) in enumerate(ranking, 1):
         hex_color = mcolors.XKCD_COLORS["xkcd:" + color]
         st.markdown(
