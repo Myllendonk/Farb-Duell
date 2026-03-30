@@ -2,6 +2,3 @@ streamlit
 matplotlib
 pandas
 streamlit-extras
-json
-random
-warnings
