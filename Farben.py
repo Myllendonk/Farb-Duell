@@ -12,8 +12,8 @@ st.set_option("client.showErrorDetails", False)
 
 st.set_page_config(layout="wide")
 
-st.title("XKCD Farben-Duell 🎨")
-show_name = st.checkbox("Farbname auf dem Button anzeigen", value=True)
+st.title("Dss große Häkelrunden Farb-Duell")
+show_name = st.checkbox("Farbname anzeigen", value=True)
 # ---------- XKCD Farben laden ----------
 colors = [c.replace("xkcd:", "") for c in mcolors.XKCD_COLORS.keys()]
 
@@ -96,6 +96,10 @@ if vote2:
 
 st.write("")
 st.write("")
+st.write("")
+st.write("")
+st.write("")
+st.write("")
 
 # ---------- Ranking anzeigen / verbergen ----------
 if "show_ranking" not in st.session_state:
@@ -126,7 +130,7 @@ st.write("")
 
 # ---------- CSV Export ganz unten ----------
 st.markdown("---")
-st.markdown("### Ergebnis exportieren")
+st.markdown("### Datenverwaltung")
 
 df = pd.DataFrame(
     sorted(scores.items(), key=lambda x: x[1], reverse=True),
