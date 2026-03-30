@@ -27,7 +27,7 @@ def color_distance(hex1, hex2):
     return sqrt((r1-r2)**2 + (g1-g2)**2 + (b1-g2)**2)
 # ---------- XKCD Farben laden ----------
 colors = [c.replace("xkcd:", "") for c in mcolors.XKCD_COLORS.keys()]
-
+xkcd = mcolors.XKCD_COLORS
 filtered_colors = []
 filtered_hex = []
 
