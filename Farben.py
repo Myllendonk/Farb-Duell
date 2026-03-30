@@ -28,6 +28,23 @@ def color_distance(hex1, hex2):
 # ---------- XKCD Farben laden ----------
 colors = [c.replace("xkcd:", "") for c in mcolors.XKCD_COLORS.keys()]
 
+filtered_colors = []
+filtered_hex = []
+
+for name, hex_code in colors.items():
+
+    # prüfen ob zu ähnlich zu einer schon vorhandenen Farbe
+    too_similar = False
+
+    for existing in filtered_hex:
+        if color_distance(hex_code, existing) < 25:
+            too_similar = True
+            break
+
+    if not too_similar:
+        filtered_colors.append(name.replace("xkcd:", ""))
+        filtered_hex.append(hex_code)
+
 FILE = "votes.json"
 
 # ---------- Stimmen laden ----------
