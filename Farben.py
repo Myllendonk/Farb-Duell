@@ -81,42 +81,6 @@ def colored_button(label, key):
     ):
 
        return st.button(button_text, key=key, use_container_width=True)
-def colored_button_2(label, key):
-    hex_color = mcolors.XKCD_COLORS["xkcd:" + label]
-    print(hex_color)
-    if show_name:
-        button_text = label
-    else:
-        button_text = " "
-
-    with stylable_container(
-        key,
-        css_styles=f"""
-        button {{
-            background-color: {hex_color};
-            color: black;
-            height: 150px;
-            font-size: 22px;
-            font-weight: bold;
-            border-radius: 20px;
-        }}
-        button:hover {{
-            background-color: {hex_color} !important;
-            color: black !important;
-            border: none !important;
-            transform: none !important;
-            box-shadow: none !important;
-        }}
-    
-       button:active {{
-            background-color: {hex_color};
-            color: black;
-            border: none;
-        }}
-        """,
-    ):
-
-       return st.button(button_text, key=key, use_container_width=True)
 
 # ---------- Zwei große Farb-Buttons ----------
 col1, col2 = st.columns(2)
@@ -125,7 +89,7 @@ with col1:
     vote1 = colored_button(c1, f"btn1_{c1}_{c2}")
 
 with col2:
-    vote2 = colored_button_2(c2, f"btn2_{c1}_{c2}")
+    vote2 = colored_button(c2, f"btn2_{c1}_{c2}")
 
 # ---------- Abstimmen ----------
 if vote1:
