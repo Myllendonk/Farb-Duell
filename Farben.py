@@ -27,10 +27,12 @@ if os.path.exists(FILE):
 else:
     data = {}
 
-# fehlende Farben automatisch ergänzen
-for c in colors:
-    if c not in data:
-        data[c] = {"wins": 0, "duels": 0}
+# alte Daten (nur Punkte) automatisch umwandeln
+for color in colors:
+    if color not in data:
+        data[color] = {"wins": 0, "duels": 0}
+    elif isinstance(data[color], int):
+        data[color] = {"wins": data[color], "duels": 0}
 
 # ---------- Duell speichern ----------
 if "duel" not in st.session_state:
