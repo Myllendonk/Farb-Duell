@@ -34,7 +34,9 @@ for c in colors:
 # ---------- Duell speichern ----------
 if "duel" not in st.session_state:
     st.session_state.duel = random.sample(colors, 2)
-
+if "duels" not in st.session_state:
+    st.session_state.duels = {c: 0 for c in colors}
+    
 c1, c2 = st.session_state.duel
 
 st.subheader("Welche Farbe gefällt dir besser?")
@@ -77,6 +79,9 @@ with col2:
 if vote1:
     scores[c1] += 1
     scores[c2] -= 1
+    st.session_state.duels[c1] += 1
+    st.session_state.duels[c2] += 1
+
     st.session_state.duel = random.sample(colors, 2)
 
     with open(FILE, "w") as f:
@@ -87,6 +92,9 @@ if vote1:
 if vote2:
     scores[c2] += 1
     scores[c1] -= 1
+    st.session_state.duels[c1] += 1
+    st.session_state.duels[c2] += 1
+
     st.session_state.duel = random.sample(colors, 2)
 
     with open(FILE, "w") as f:
@@ -138,6 +146,14 @@ if st.session_state.show_ranking:
                     {i}. {color} – {score} Punkte
             </div>
             """,
+            duels = st.session_state.duels[color]
+
+            if duels > 0:
+                ratio = round(score / duels, 2)
+            else:
+                ratio = 0
+            
+            st.write(f"{i}. {color} – {score} Siege – Quote: {ratio}")
             unsafe_allow_html=True
         )
 
