@@ -64,11 +64,13 @@ def colored_button(label, key):
             font-weight: bold;
             border-radius: 20px;
         }}
-    button:hover {{
-        background-color: {hex_color}!important;
-        color: black;
-        border: none;
-    }}
+        button[data-testid="baseButton-{key}"]:hover {{
+            background-color: {hex_color} !important;
+            color: black !important;
+            border: none !important;
+            box-shadow: none !important;
+            transform: none !important;
+        }}
 
     button:active {{
         background-color: {hex_color};
