@@ -64,6 +64,11 @@ def colored_button(label, key):
             font-weight: bold;
             border-radius: 20px;
         }}
+            div[data-testid="stButton"] button[kind="secondary"][data-testid="{key}"]:hover {{
+            background-color: {hex_color};
+            color: black;
+            border: none;
+        }}
         """,
     ):
 
