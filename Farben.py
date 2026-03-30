@@ -58,7 +58,8 @@ else:
     # Ergebnis speichern
     with open(FILTER_FILE, "w") as f:
         json.dump(filtered_colors, f)
-
+st.write("Anzahl aller XKCD-Farben:", len(xkcd))
+st.write("Anzahl nach dem Filtern:", len(filtered_colors))
 FILE = "votes.json"
 
 # ---------- Stimmen laden ----------
