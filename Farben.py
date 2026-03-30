@@ -15,6 +15,7 @@ st.set_page_config(layout="wide")
 st.title("Das große Häkelrunden Farb-Duell")
 
 show_name = st.checkbox("Farbname anzeigen", value=True)
+FILTER_FILE = "filtered_colors.json"
 from math import sqrt
 
 def hex_to_rgb(hex_color):
@@ -28,22 +29,35 @@ def color_distance(hex1, hex2):
 # ---------- XKCD Farben laden ----------
 colors = [c.replace("xkcd:", "") for c in mcolors.XKCD_COLORS.keys()]
 xkcd = mcolors.XKCD_COLORS
-filtered_colors = []
-filtered_hex = []
 
-for name, hex_code in xkcd.items():
+if os.path.exists(FILTER_FILE):
 
-    # prüfen ob zu ähnlich zu einer schon vorhandenen Farbe
-    too_similar = False
+    # Datei laden
+    with open(FILTER_FILE, "r") as f:
+        filtered_colors = json.load(f)
 
-    for existing in filtered_hex:
-        if color_distance(hex_code, existing) < 25:
-            too_similar = True
-            break
+else:
 
-    if not too_similar:
-        filtered_colors.append(name.replace("xkcd:", ""))
-        filtered_hex.append(hex_code)
+    # Farben filtern (dein Code von vorher)
+    filtered_colors = []
+    filtered_hex = []
+
+    for name, hex_code in mcolors.XKCD_COLORS.items():
+
+        too_similar = False
+
+        for existing in filtered_hex:
+            if color_distance(hex_code, existing) < 25:
+                too_similar = True
+                break
+
+        if not too_similar:
+            filtered_colors.append(name.replace("xkcd:", ""))
+            filtered_hex.append(hex_code)
+
+    # Ergebnis speichern
+    with open(FILTER_FILE, "w") as f:
+        json.dump(filtered_colors, f)
 
 FILE = "votes.json"
 
