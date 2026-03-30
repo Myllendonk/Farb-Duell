@@ -78,6 +78,7 @@ else:
         json.dump(filtered_colors, f)
 st.write("Anzahl aller XKCD-Farben:", len(xkcd))
 st.write("Anzahl nach dem Filtern:", len(filtered_colors))
+colors = filtered_colors
 FILE = "votes.json"
 
 # ---------- Stimmen laden ----------
