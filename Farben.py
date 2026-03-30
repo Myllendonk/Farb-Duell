@@ -49,8 +49,15 @@ else:
         for existing in filtered_hex:
             if color_distance(hex_code, existing) < 25:
                 too_similar = True
-                st.write(hex_code)
-                st.write(existing)
+                st.write(color_distance)
+                st.markdown(
+                    f'<p style="color:{hex_code}; font-size:20px;">Diese Farbe wird angezeigt</p>',
+                    unsafe_allow_html=True
+                )
+                st.markdown(
+                    f'<p style="color:{existing}; font-size:20px;">Diese Farbe wird angezeigt</p>',
+                    unsafe_allow_html=True
+                )
                 break
 
         if not too_similar:
