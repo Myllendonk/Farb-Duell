@@ -229,18 +229,18 @@ if st.session_state.show_ranking:
     ranking = sorted(ranking, key=lambda x: (x[1], x[3]), reverse=True)
     st.markdown(
         f'<span style="color:{mcolors.XKCD_COLORS["xkcd:" + ranking[0][0]]};">Dies</span> '
-        f'<span style="color:{mcolors.XKCD_COLORS["xkcd:" + ranking[1][0]]};">sind.</span>'
-        f'<span style="color:{mcolors.XKCD_COLORS["xkcd:" + ranking[2][0]]};">die</span>'
-        f'<span style="color:{mcolors.XKCD_COLORS["xkcd:" + ranking[3][0]]};">schönsten</span>'
+        f'<span style="color:{mcolors.XKCD_COLORS["xkcd:" + ranking[1][0]]};">sind</span> '
+        f'<span style="color:{mcolors.XKCD_COLORS["xkcd:" + ranking[2][0]]};">die</span> '
+        f'<span style="color:{mcolors.XKCD_COLORS["xkcd:" + ranking[3][0]]};">schönsten</span> '
         f'<span style="color:{mcolors.XKCD_COLORS["xkcd:" + ranking[4][0]]};">Farben.</span>'
         ,
         unsafe_allow_html=True
     )
     st.markdown(
         f'<span style="color:{mcolors.XKCD_COLORS["xkcd:" + ranking[-1][0]]};">Dies</span> '
-        f'<span style="color:{mcolors.XKCD_COLORS["xkcd:" + ranking[-2][0]]};">sind.</span>'
-        f'<span style="color:{mcolors.XKCD_COLORS["xkcd:" + ranking[-3][0]]};">die</span>'
-        f'<span style="color:{mcolors.XKCD_COLORS["xkcd:" + ranking[-4][0]]};">hässlichsten</span>'
+        f'<span style="color:{mcolors.XKCD_COLORS["xkcd:" + ranking[-2][0]]};">sind</span> '
+        f'<span style="color:{mcolors.XKCD_COLORS["xkcd:" + ranking[-3][0]]};">die</span> '
+        f'<span style="color:{mcolors.XKCD_COLORS["xkcd:" + ranking[-4][0]]};">hässlichsten</span> '
         f'<span style="color:{mcolors.XKCD_COLORS["xkcd:" + ranking[-5][0]]};">Farben.</span>'
         ,
         unsafe_allow_html=True
