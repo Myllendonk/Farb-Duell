@@ -228,20 +228,8 @@ if st.session_state.show_ranking:
     # sortieren nach Quote
     ranking = sorted(ranking, key=lambda x: (x[1], x[3]), reverse=True)
     st.markdown(
-    f'<p style="color:{mcolors.XKCD_COLORS["xkcd:" + ranking[-1][0]]}; font-size:22px;">'
-    f'Diese'
-    f'</p>',
-    unsafe_allow_html=True
-    )
-    st.markdown(
-    f'<p style="color:{mcolors.XKCD_COLORS["xkcd:" + ranking[-1][0]]}; font-size:22px;">'
-    f'Farben'
-    f'</p>',
-    unsafe_allow_html=True
-    )
-    st.markdown(
-    '<span style="color:red;">Dieser Teil ist rot</span> '
-    '<span style="color:blue;">und dieser Teil ist blau.</span>',
+    '<span style=":{mcolors.XKCD_COLORS["xkcd:" + ranking[-1][0]]};">Dieser Teil ist rot</span> '
+    '<span style="{mcolors.XKCD_COLORS["xkcd:" + ranking[-2][0]]};">und dieser Teil ist blau.</span>',
     unsafe_allow_html=True
     )
     st.subheader("Aktuelles Ranking")
