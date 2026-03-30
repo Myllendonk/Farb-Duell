@@ -146,13 +146,6 @@ st.download_button(
     mime="text/csv",
 )
 
-st.write("")
-st.write("")
-
-# ---------- HARD RESET ----------
-st.markdown("---")
-st.markdown("### Hard Reset (alle Stimmen löschen)")
-
 if "confirm_reset" not in st.session_state:
     st.session_state.confirm_reset = False
 
