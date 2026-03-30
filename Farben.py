@@ -228,12 +228,9 @@ if st.session_state.show_ranking:
     # sortieren nach Quote
     ranking = sorted(ranking, key=lambda x: (x[1], x[3]), reverse=True)
     st.markdown(
-    st.markdown(
         f'<span style="color:{mcolors.XKCD_COLORS["xkcd:" + ranking[-1][0]]};">Dieser sind</span> '
         f'<span style="color:{mcolors.XKCD_COLORS["xkcd:" + ranking[-2][0]]};">hässliche Farben.</span>',
         unsafe_allow_html=True
-    )
-    unsafe_allow_html=True
     )
     st.subheader("Aktuelles Ranking")
     for i, (color, wins, duels, ratio) in enumerate(ranking, 1):
