@@ -58,15 +58,15 @@ else:
         for existing in filtered_hex:
             if hex_distance(hex_code, existing) < 6:
                 too_similar = True
-                st.write(hex_distance(hex_code, existing))
-                st.markdown(
-                    f'<p style="color:{hex_code}; font-size:20px;">Diese Farbe wird angezeigt</p>',
-                    unsafe_allow_html=True
-                )
-                st.markdown(
-                    f'<p style="color:{existing}; font-size:20px;">Diese Farbe wird angezeigt</p>',
-                    unsafe_allow_html=True
-                )
+                # st.write(hex_distance(hex_code, existing))
+                # st.markdown(
+                #     f'<p style="color:{hex_code}; font-size:20px;">Diese Farbe wird angezeigt</p>',
+                #     unsafe_allow_html=True
+                # )
+                # st.markdown(
+                #     f'<p style="color:{existing}; font-size:20px;">Diese Farbe wird angezeigt</p>',
+                #     unsafe_allow_html=True
+                # )
                 break
 
         if not too_similar:
@@ -76,8 +76,8 @@ else:
     # Ergebnis speichern
     with open(FILTER_FILE, "w") as f:
         json.dump(filtered_colors, f)
-st.write("Anzahl aller XKCD-Farben:", len(xkcd))
-st.write("Anzahl nach dem Filtern:", len(filtered_colors))
+# st.write("Anzahl aller XKCD-Farben:", len(xkcd))
+# st.write("Anzahl nach dem Filtern:", len(filtered_colors))
 colors = filtered_colors
 FILE = "votes.json"
 
