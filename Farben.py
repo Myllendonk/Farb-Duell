@@ -140,9 +140,9 @@ if st.session_state.show_ranking:
 # sortieren nach Quote
 ranking = sorted(ranking, key=lambda x: x[3], reverse=True)
 
-for i, (color, wins, duels, ratio) in enumerate(ranking, 1)
+for i, (color, wins, duels, ratio) in enumerate(ranking, 1):
     hex_color = mcolors.XKCD_COLORS["xkcd:" + color]
-   st.markdown(
+    st.markdown(
         f"""
         <div style="display:flex; align-items:center; gap:15px; margin-bottom:8px;">
             <div style="
