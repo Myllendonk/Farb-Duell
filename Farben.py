@@ -12,14 +12,8 @@ st.set_option("client.showErrorDetails", False)
 
 st.set_page_config(layout="wide")
 
-st.title("Dss große Häkelrunden Farb-Duell")
-st.markdown("""
-<script>
-document.addEventListener("click", function() {
-    document.activeElement.blur();
-});
-</script>
-""", unsafe_allow_html=True)
+st.title("Das große Häkelrunden Farb-Duell")
+
 show_name = st.checkbox("Farbname anzeigen", value=True)
 # ---------- XKCD Farben laden ----------
 colors = [c.replace("xkcd:", "") for c in mcolors.XKCD_COLORS.keys()]
@@ -77,10 +71,10 @@ def colored_button(label, key):
 col1, col2 = st.columns(2)
 
 with col1:
-    vote1 = colored_button(c1, "btn1")
+    vote1 = colored_button(c1, f"btn1_{c1}_{c2}")
 
 with col2:
-    vote2 = colored_button(c2, "btn2")
+    vote1 = colored_button(c1, f"btn1_{c1}_{c2}")
 
 # ---------- Abstimmen ----------
 if vote1:
