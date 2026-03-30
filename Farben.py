@@ -29,8 +29,8 @@ def color_distance(hex1, hex2):
 # ---------- XKCD Farben laden ----------
 colors = [c.replace("xkcd:", "") for c in mcolors.XKCD_COLORS.keys()]
 xkcd = mcolors.XKCD_COLORS
-
-if os.path.exists(FILTER_FILE):
+if false:
+# if os.path.exists(FILTER_FILE):
 
     # Datei laden
     with open(FILTER_FILE, "r") as f:
@@ -49,6 +49,8 @@ else:
         for existing in filtered_hex:
             if color_distance(hex_code, existing) < 25:
                 too_similar = True
+                st.write(hex_code)
+                st.write(existing)
                 break
 
         if not too_similar:
