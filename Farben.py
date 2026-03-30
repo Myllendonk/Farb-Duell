@@ -131,6 +131,11 @@ if st.session_state.show_ranking:
     for i, (color, score) in enumerate(ranking, 1):
 
         hex_color = mcolors.XKCD_COLORS["xkcd:" + color]
+        duels = st.session_state.duels[color]
+        if duels > 0:
+            ratio = round(score / duels, 2)
+        else:
+            ratio = 0
 
         st.markdown(
             f"""
@@ -145,14 +150,7 @@ if st.session_state.show_ranking:
 
                     {i}. {color} – {score} Punkte
             </div>
-            """,
-            duels = st.session_state.duels[color]
-
-            if duels > 0:
-                ratio = round(score / duels, 2)
-            else:
-                ratio = 0
-            
+            """,           
             st.write(f"{i}. {color} – {score} Siege – Quote: {ratio}")
             unsafe_allow_html=True
         )
