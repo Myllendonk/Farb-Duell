@@ -135,9 +135,7 @@ if st.session_state.show_ranking:
                     border:1px solid black;
                 "></div>
 
-                <div style="font-size:18px;">
                     {i}. {color} – {score} Punkte
-                </div>
             </div>
             """,
             unsafe_allow_html=True
