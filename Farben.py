@@ -148,7 +148,7 @@ if st.session_state.show_ranking:
                     border:1px solid black;
                 "></div>
 
-                    {i}. {color} – {score} Punkte – Siege – Quote: {ratio}
+                    {i}. {color} – {score} Punkte – Gewinn-Quote: {ratio}
             </div>
             """,           
             unsafe_allow_html=True
