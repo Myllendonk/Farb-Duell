@@ -56,7 +56,7 @@ else:
         too_similar = False
 
         for existing in filtered_hex:
-            if hex_distance(hex_code, existing) < 10:
+            if hex_distance(hex_code, existing) < 6:
                 too_similar = True
                 st.write(hex_distance(hex_code, existing))
                 st.markdown(
