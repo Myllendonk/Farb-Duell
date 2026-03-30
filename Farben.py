@@ -137,7 +137,7 @@ if st.session_state.show_ranking:
         else:
             ratio = 0
 
-    ranking.append((color, wins, duels, ratio))
+        ranking.append((color, wins, duels, ratio))
 
     # sortieren nach Quote
     ranking = sorted(ranking, key=lambda x: x[3], reverse=True)
