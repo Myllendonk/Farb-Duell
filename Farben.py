@@ -51,7 +51,7 @@ def colored_button(label, key):
     if show_name:
         button_text = label
     else:
-        button_text = " "
+        button_text = " X "
     # Farbfeld anzeigen
     st.markdown(f"""
         <div style="
