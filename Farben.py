@@ -239,6 +239,11 @@ if st.session_state.show_ranking:
     f'</p>',
     unsafe_allow_html=True
     )
+    st.markdown(
+    '<span style="color:red;">Dieser Teil ist rot</span> '
+    '<span style="color:blue;">und dieser Teil ist blau.</span>',
+    unsafe_allow_html=True
+    )
     st.subheader("Aktuelles Ranking")
     for i, (color, wins, duels, ratio) in enumerate(ranking, 1):
         hex_color = mcolors.XKCD_COLORS["xkcd:" + color]
