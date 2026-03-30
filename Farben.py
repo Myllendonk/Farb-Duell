@@ -23,14 +23,14 @@ FILE = "votes.json"
 # ---------- Stimmen laden ----------
 if os.path.exists(FILE):
     with open(FILE, "r") as f:
-        scores = json.load(f)
+        data = json.load(f)
 else:
-    scores = {}
+    data = {}
 
-# fehlende Farben automatisch hinzufügen
+# fehlende Farben automatisch ergänzen
 for c in colors:
-    if c not in scores:
-        scores[c] = 0
+    if c not in data:
+        data[c] = {"wins": 0, "duels": 0}
 
 # ---------- Duell speichern ----------
 if "duel" not in st.session_state:
@@ -78,29 +78,27 @@ with col2:
 
 # ---------- Abstimmen ----------
 if vote1:
-    scores[c1] += 1
-    scores[c2] -= 1
-    st.session_state.duels[c1] += 1
-    st.session_state.duels[c2] += 1
-
-    st.session_state.duel = random.sample(colors, 2)
+    data[c1]["wins"] += 1
+    data[c2]["wins"] -= 1
+    data[c1]["duels"] += 1
+    data[c2]["duels"] += 1
 
     with open(FILE, "w") as f:
-        json.dump(scores, f)
+        json.dump(data, f)
 
+    st.session_state.duel = random.sample(colors, 2)
     st.rerun()
 
 if vote2:
-    scores[c2] += 1
-    scores[c1] -= 1
-    st.session_state.duels[c1] += 1
-    st.session_state.duels[c2] += 1
-
-    st.session_state.duel = random.sample(colors, 2)
+    data[c2]["wins"] += 1
+    data[c1]["wins"] -= 1
+    data[c2]["duels"] += 1
+    data[c1]["duels"] += 1
 
     with open(FILE, "w") as f:
-        json.dump(scores, f)
+        json.dump(data, f)
 
+    st.session_state.duel = random.sample(colors, 2)
     st.rerun()
 
 st.write("")
@@ -126,19 +124,26 @@ else:
 # ---------- Ranking ----------
 if st.session_state.show_ranking:
     st.subheader("Aktuelles Ranking")
+    ranking = []
 
-    ranking = sorted(scores.items(), key=lambda x: x[1], reverse=True)
-
-    for i, (color, score) in enumerate(ranking, 1):
-
-        hex_color = mcolors.XKCD_COLORS["xkcd:" + color]
-        duels = st.session_state.duels[color]
+    for color in colors:
+        wins = data[color]["wins"]
+        duels = data[color]["duels"]
+    
         if duels > 0:
-            ratio = round((score + duels) / (2 * duels), 2)
+            ratio = round((wins + duels) / (2 * duels), 2)
         else:
             ratio = 0
 
-        st.markdown(
+    ranking.append((color, wins, duels, ratio))
+
+# sortieren nach Quote
+ranking = sorted(ranking, key=lambda x: x[3], reverse=True)
+    ranking = sorted(scores.items(), key=lambda x: x[1], reverse=True)
+
+    for i, (color, wins, duels, ratio) in enumerate(ranking, 1)
+        hex_color = mcolors.XKCD_COLORS["xkcd:" + color]
+       st.markdown(
             f"""
             <div style="display:flex; align-items:center; gap:15px; margin-bottom:8px;">
                 <div style="
@@ -149,7 +154,7 @@ if st.session_state.show_ranking:
                     border:1px solid black;
                 "></div>
 
-                    {i}. {color} – {score} Punkte – Gewinn-Quote: {ratio} 
+                    {i}. {color} – {wins} Punkte – Gewinn-Quote: {ratio} 
             </div>
             """,           
             unsafe_allow_html=True
