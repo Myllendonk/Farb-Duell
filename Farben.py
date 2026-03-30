@@ -52,35 +52,48 @@ def colored_button(label, key):
         button_text = label
     else:
         button_text = " "
+    # Farbfeld anzeigen
+    st.markdown(f"""
+        <div style="
+            background-color:{hex_color};
+            height:160px;
+            border-radius:20px;
+            margin-bottom:10px;
+        ">
+        </div>
+    """, unsafe_allow_html=True)
 
-    with stylable_container(
-        key,
-        css_styles=f"""
-        button {{
-            background-color: {hex_color};
-            color: black;
-            height: 150px;
-            font-size: 22px;
-            font-weight: bold;
-            border-radius: 20px;
-        }}
-        button:hover {{
-            background-color: {hex_color} !important;
-            color: black !important;
-            border: none !important;
-            transform: none !important;
-            box-shadow: none !important;
-        }}
+    # Button darunter
+    return st.button(button_text, key=key, use_container_width=True)
+
+    # with stylable_container(
+    #     key,
+    #     css_styles=f"""
+    #     button {{
+    #         background-color: {hex_color};
+    #         color: black;
+    #         height: 150px;
+    #         font-size: 22px;
+    #         font-weight: bold;
+    #         border-radius: 20px;
+    #     }}
+    #     button:hover {{
+    #         background-color: {hex_color} !important;
+    #         color: black !important;
+    #         border: none !important;
+    #         transform: none !important;
+    #         box-shadow: none !important;
+    #     }}
     
-       button:active {{
-            background-color: {hex_color};
-            color: black;
-            border: none;
-        }}
-        """,
-    ):
+    #    button:active {{
+    #         background-color: {hex_color};
+    #         color: black;
+    #         border: none;
+    #     }}
+    #     """,
+    # ):
 
-       return st.button(button_text, key=key, use_container_width=True)
+    #    return st.button(button_text, key=key, use_container_width=True)
 
 # ---------- Zwei große Farb-Buttons ----------
 col1, col2 = st.columns(2)
