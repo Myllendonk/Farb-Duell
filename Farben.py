@@ -148,7 +148,7 @@ if st.session_state.show_ranking:
                     border:1px solid black;
                 "></div>
 
-                    {i}. {color} – {score} Punkte – Gewinn-Quote: {ratio}
+                    {i}. {color} – {score} Punkte – Gewinn-Quote: {ratio} {duels}
             </div>
             """,           
             unsafe_allow_html=True
