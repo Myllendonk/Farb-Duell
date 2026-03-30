@@ -148,10 +148,9 @@ if st.session_state.show_ranking:
                     border:1px solid black;
                 "></div>
 
-                    {i}. {color} – {score} Punkte
+                    {i}. {color} – {score} Punkte – Siege – Quote: {ratio}
             </div>
             """,           
-            st.write(f"{i}. {color} – {score} Siege – Quote: {ratio}")
             unsafe_allow_html=True
         )
 
