@@ -74,7 +74,7 @@ with col1:
     vote1 = colored_button(c1, f"btn1_{c1}_{c2}")
 
 with col2:
-    vote1 = colored_button(c1, f"btn1_{c1}_{c2}")
+    vote2 = colored_button(c2, f"btn2_{c1}_{c2}")
 
 # ---------- Abstimmen ----------
 if vote1:
