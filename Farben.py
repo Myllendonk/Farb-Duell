@@ -228,11 +228,11 @@ if st.session_state.show_ranking:
     # sortieren nach Quote
     ranking = sorted(ranking, key=lambda x: (x[1], x[3]), reverse=True)
     st.markdown(
-        f'<span style="color:{mcolors.XKCD_COLORS["xkcd:" + ranking[0][0]]};">Dies</span> '
-        f'<span style="color:{mcolors.XKCD_COLORS["xkcd:" + ranking[1][0]]};">sind</span> '
-        f'<span style="color:{mcolors.XKCD_COLORS["xkcd:" + ranking[2][0]]};">die</span> '
-        f'<span style="color:{mcolors.XKCD_COLORS["xkcd:" + ranking[3][0]]};">schönsten</span> '
-        f'<span style="color:{mcolors.XKCD_COLORS["xkcd:" + ranking[4][0]]};">Farben.</span>'
+        f'<span style="color:{mcolors.XKCD_COLORS["xkcd:" + ranking[0][0]]};font-size:20px;">Dies</span> '
+        f'<span style="color:{mcolors.XKCD_COLORS["xkcd:" + ranking[1][0]]};font-size:20px;">sind</span> '
+        f'<span style="color:{mcolors.XKCD_COLORS["xkcd:" + ranking[2][0]]};font-size:20px;">die</span> '
+        f'<span style="color:{mcolors.XKCD_COLORS["xkcd:" + ranking[3][0]]};font-size:20px;">schönsten</span> '
+        f'<span style="color:{mcolors.XKCD_COLORS["xkcd:" + ranking[4][0]]};font-size:20px;">Farben.</span>'
         ,
         unsafe_allow_html=True
     )
