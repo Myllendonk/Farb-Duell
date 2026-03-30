@@ -15,6 +15,16 @@ st.set_page_config(layout="wide")
 st.title("Das große Häkelrunden Farb-Duell")
 
 show_name = st.checkbox("Farbname anzeigen", value=True)
+from math import sqrt
+
+def hex_to_rgb(hex_color):
+    hex_color = hex_color.lstrip("#")
+    return tuple(int(hex_color[i:i+2], 16) for i in (0, 2, 4))
+
+def color_distance(hex1, hex2):
+    r1, g1, b1 = hex_to_rgb(hex1)
+    r2, g2, b2 = hex_to_rgb(hex2)
+    return sqrt((r1-r2)**2 + (g1-g2)**2 + (b1-g2)**2)
 # ---------- XKCD Farben laden ----------
 colors = [c.replace("xkcd:", "") for c in mcolors.XKCD_COLORS.keys()]
 
