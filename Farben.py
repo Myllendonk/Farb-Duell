@@ -54,7 +54,7 @@ else:
         too_similar = False
 
         for existing in filtered_hex:
-            if hex_distance(hex_code, existing) < 25:
+            if hex_distance(hex_code, existing) < 10:
                 too_similar = True
                 st.write(color_distance(hex_code, existing))
                 st.markdown(
