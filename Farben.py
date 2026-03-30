@@ -65,7 +65,7 @@ def colored_button(label, key):
             border-radius: 20px;
         }}
     button:hover {{
-        background-color: {hex_color};
+        background-color: {hex_color}!important;
         color: black;
         border: none;
     }}
