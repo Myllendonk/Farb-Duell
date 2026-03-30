@@ -29,7 +29,7 @@ def color_distance(hex1, hex2):
 # ---------- XKCD Farben laden ----------
 colors = [c.replace("xkcd:", "") for c in mcolors.XKCD_COLORS.keys()]
 xkcd = mcolors.XKCD_COLORS
-if false:
+if False:
 # if os.path.exists(FILTER_FILE):
 
     # Datei laden
