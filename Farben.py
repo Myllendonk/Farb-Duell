@@ -229,7 +229,13 @@ if st.session_state.show_ranking:
     ranking = sorted(ranking, key=lambda x: (x[1], x[3]), reverse=True)
     st.markdown(
     f'<p style="color:{mcolors.XKCD_COLORS["xkcd:" + ranking[-1][0]]}; font-size:22px;">'
-    f'Das ist laut unserer Umfrage die hässlichste Farbe 😄'
+    f'Diese'
+    f'</p>',
+    unsafe_allow_html=True
+    )
+    st.markdown(
+    f'<p style="color:{mcolors.XKCD_COLORS["xkcd:" + ranking[-1][0]]}; font-size:22px;">'
+    f'Farben'
     f'</p>',
     unsafe_allow_html=True
     )
