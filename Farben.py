@@ -31,7 +31,7 @@ xkcd = mcolors.XKCD_COLORS
 filtered_colors = []
 filtered_hex = []
 
-for name, hex_code in colors.items():
+for name, hex_code in xkcd.items():
 
     # prüfen ob zu ähnlich zu einer schon vorhandenen Farbe
     too_similar = False
