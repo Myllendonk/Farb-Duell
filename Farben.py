@@ -227,7 +227,7 @@ if st.session_state.show_ranking:
         ranking.append((color, wins, duels, ratio))
 
     # sortieren nach Quote
-    ranking = sorted(ranking, key=lambda x: x[1], reverse=True)
+    ranking = sorted(ranking, key=lambda x: (x[1], x[3]), reverse=True)
     
     for i, (color, wins, duels, ratio) in enumerate(ranking, 1):
         hex_color = mcolors.XKCD_COLORS["xkcd:" + color]
