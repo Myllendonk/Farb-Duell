@@ -212,6 +212,12 @@ else:
 
 # ---------- Ranking ----------
 if st.session_state.show_ranking:
+    st.markdown(
+    f'<p style="color:{colors.XKCD_COLORS["xkcd:" + ranking[-1][0]]}; font-size:22px;">'
+    f'Das ist laut unserer Umfrage die hässlichste Farbe 😄'
+    f'</p>',
+    unsafe_allow_html=True
+    )
     st.subheader("Aktuelles Ranking")
     ranking = []
 
