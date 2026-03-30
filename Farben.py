@@ -6,6 +6,9 @@ import pandas as pd
 from matplotlib import colors as mcolors
 from streamlit_extras.stylable_container import stylable_container
 import warnings
+from colormath.color_objects import sRGBColor, LabColor
+from colormath.color_conversions import convert_color
+from colormath.color_diff import delta_e_cie2000
 warnings.filterwarnings("ignore")
 
 st.set_option("client.showErrorDetails", False)
@@ -18,14 +21,18 @@ show_name = st.checkbox("Farbname anzeigen", value=True)
 FILTER_FILE = "filtered_colors.json"
 from math import sqrt
 
-def hex_to_rgb(hex_color):
-    hex_color = hex_color.lstrip("#")
-    return tuple(int(hex_color[i:i+2], 16) for i in (0, 2, 4))
+def hex_distance(hex1, hex2):
 
-def color_distance(hex1, hex2):
-    r1, g1, b1 = hex_to_rgb(hex1)
-    r2, g2, b2 = hex_to_rgb(hex2)
-    return sqrt((r1-r2)**2 + (g1-g2)**2 + (b1-g2)**2)
+    # HEX → RGB
+    rgb1 = sRGBColor.new_from_rgb_hex(hex1)
+    rgb2 = sRGBColor.new_from_rgb_hex(hex2)
+
+    # RGB → LAB
+    lab1 = convert_color(rgb1, LabColor)
+    lab2 = convert_color(rgb2, LabColor)
+
+    # CIEDE2000 Abstand
+    return delta_e_cie2000(lab1, lab2)
 # ---------- XKCD Farben laden ----------
 colors = [c.replace("xkcd:", "") for c in mcolors.XKCD_COLORS.keys()]
 xkcd = mcolors.XKCD_COLORS
@@ -47,7 +54,7 @@ else:
         too_similar = False
 
         for existing in filtered_hex:
-            if color_distance(hex_code, existing) < 25:
+            if hex_distance(hex_code, existing) < 25:
                 too_similar = True
                 st.write(color_distance(hex_code, existing))
                 st.markdown(
