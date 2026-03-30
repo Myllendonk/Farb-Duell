@@ -133,7 +133,7 @@ if st.session_state.show_ranking:
         hex_color = mcolors.XKCD_COLORS["xkcd:" + color]
         duels = st.session_state.duels[color]
         if duels > 0:
-            ratio = round(score / duels, 2)
+            ratio = round((score + duels) / (2 * duels), 2)
         else:
             ratio = 0
 
@@ -195,6 +195,7 @@ else:
             os.remove(FILE)
 
         st.session_state.duel = random.sample(colors, 2)
+        st.session_state.duels = {c: 0 for c in colors}
         st.session_state.show_ranking = False
         st.session_state.confirm_reset = False
 
