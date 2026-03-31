@@ -321,3 +321,28 @@ else:
     if col2.button("Abbrechen"):
         st.session_state.confirm_reset = False
         st.rerun()
+        
+st.markdown("---")
+st.subheader("Backup laden")
+
+uploaded_file = st.file_uploader("CSV wieder laden", type=["csv"])
+
+if uploaded_file is not None:
+
+    df = pd.read_csv(uploaded_file)
+
+    new_data = {}
+
+    for _, row in df.iterrows():
+        color = row["Farbe"]
+
+        new_data[color] = {
+            "wins": int(row["Siege"]),
+            "duels": int(row["Duelle"])
+        }
+
+    with open(FILE, "w") as f:
+        json.dump(new_data, f)
+
+    st.success("Daten erfolgreich geladen!")
+    st.rerun()
