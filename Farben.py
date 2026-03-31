@@ -281,9 +281,7 @@ st.download_button(
     file_name="farben_ranking.json",
     mime="application/json",
 )
-
-st.markdown("---")
-st.subheader("Backup laden")
+st.markdown("Upload")
 
 uploaded_file = st.file_uploader("JSON wieder laden", type=["json"])
 
@@ -315,7 +313,7 @@ if not st.session_state.confirm_reset:
         st.rerun()
 
 else:
-    st.warning("Bist du sicher? Alle Stimmen werden gelöscht!")
+    st.warning("Sicher?")
 
     col1, col2 = st.columns(2)
 
