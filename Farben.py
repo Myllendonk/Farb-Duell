@@ -219,7 +219,7 @@ if st.session_state.show_ranking:
         duels = data[color]["duels"]
     
         if duels > 0:
-            ratio = round((wins + duels) / (2 * duels), 2)*10
+            ratio = round((wins + duels) / (2 * duels), 2)*100
         else:
             ratio = 0
 
