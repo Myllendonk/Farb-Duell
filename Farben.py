@@ -270,79 +270,38 @@ st.write("")
 st.write("")
 st.write("")
 
-# ---------- CSV Export ganz unten ----------
 st.markdown("---")
 st.markdown("### Datenverwaltung")
 
-df = pd.DataFrame([
-    {
-        "Farbe": color,
-        "Siege": data[color]["wins"],
-        "Duelle": data[color]["duels"],
-        "Quote": data[color]["wins"] / data[color]["duels"] if data[color]["duels"] > 0 else 0
-    }
-    for color in colors
-])
-
-csv = df.to_csv(index=False).encode("utf-8")
+json_data = json.dumps(data, indent=2)
 
 st.download_button(
-    label="Ergebnis als CSV herunterladen",
-    data=csv,
-    file_name="farben_ranking.csv",
-    mime="text/csv",
+    label="Ergebnis als JSON herunterladen",
+    data=json_data,
+    file_name="farben_ranking.json",
+    mime="application/json",
 )
 
-if "confirm_reset" not in st.session_state:
-    st.session_state.confirm_reset = False
-
-if not st.session_state.confirm_reset:
-    if st.button("Hard Reset starten"):
-        st.session_state.confirm_reset = True
-        st.rerun()
-
-else:
-    st.warning("Bist du sicher? Alle Stimmen werden gelöscht!")
-
-    col1, col2 = st.columns(2)
-
-    if col1.button("Ja, alles löschen"):
-        if os.path.exists(FILE):
-            os.remove(FILE)
-
-        st.session_state.duel = random.sample(colors, 2)
-        st.session_state.duels = {c: 0 for c in colors}
-        st.session_state.show_ranking = False
-        st.session_state.confirm_reset = False
-
-        st.success("Alle Stimmen wurden gelöscht.")
-        st.rerun()
-
-    if col2.button("Abbrechen"):
-        st.session_state.confirm_reset = False
-        st.rerun()
-        
 st.markdown("---")
 st.subheader("Backup laden")
 
-uploaded_file = st.file_uploader("CSV wieder laden", type=["csv"])
+uploaded_file = st.file_uploader("JSON wieder laden", type=["json"])
 
 if uploaded_file is not None:
+    try:
+        new_data = json.load(uploaded_file)
 
-    df = pd.read_csv(uploaded_file)
+        # Sicherheit: prüfen ob Format stimmt
+        for color in new_data:
+            if "wins" not in new_data[color] or "duels" not in new_data[color]:
+                st.error("Ungültige Datei – falsches Format.")
+                st.stop()
 
-    new_data = {}
+        with open(FILE, "w") as f:
+            json.dump(new_data, f)
 
-    for _, row in df.iterrows():
-        color = row["Farbe"]
+        st.success("Daten erfolgreich geladen!")
+        st.rerun()
 
-        new_data[color] = {
-            "wins": int(row["Siege"]),
-            "duels": int(row["Duelle"])
-        }
-
-    with open(FILE, "w") as f:
-        json.dump(new_data, f)
-
-    st.success("Daten erfolgreich geladen!")
-    st.rerun()
+    except Exception:
+        st.error("Datei konnte nicht gelesen werden.")
