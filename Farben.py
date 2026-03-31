@@ -219,7 +219,7 @@ if st.session_state.show_ranking:
         duels = data[color]["duels"]
     
         if duels > 0:
-            ratio = round((wins + duels) / (2 * duels), 2)
+            ratio = round((wins + duels) / (2 * duels), 2)*10
         else:
             ratio = 0
 
@@ -259,7 +259,7 @@ if st.session_state.show_ranking:
                     border:1px solid black;
                 "></div>
     
-                    {i}. {color} – {wins} Punkte – Gewinn-Quote: {ratio} 
+                    {i}. {color} – {wins} Punkte – Gewinn-Quote: {ratio}% 
             </div>
             """,           
             unsafe_allow_html=True
