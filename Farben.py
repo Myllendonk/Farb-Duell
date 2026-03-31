@@ -305,3 +305,32 @@ if uploaded_file is not None:
 
     except Exception:
         st.error("Datei konnte nicht gelesen werden.")
+
+if "confirm_reset" not in st.session_state:
+    st.session_state.confirm_reset = False
+
+if not st.session_state.confirm_reset:
+    if st.button("Hard Reset starten"):
+        st.session_state.confirm_reset = True
+        st.rerun()
+
+else:
+    st.warning("Bist du sicher? Alle Stimmen werden gelöscht!")
+
+    col1, col2 = st.columns(2)
+
+    if col1.button("Ja, alles löschen"):
+        if os.path.exists(FILE):
+            os.remove(FILE)
+
+        st.session_state.duel = random.sample(colors, 2)
+        st.session_state.duels = {c: 0 for c in colors}
+        st.session_state.show_ranking = False
+        st.session_state.confirm_reset = False
+
+        st.success("Alle Stimmen wurden gelöscht.")
+        st.rerun()
+
+    if col2.button("Abbrechen"):
+        st.session_state.confirm_reset = False
+        st.rerun()
