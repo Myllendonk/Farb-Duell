@@ -110,8 +110,8 @@ data = {}
 df = conn.read()
 # st.write(df.columns)
 # st.write(df.head())
-st.write(df)
-st.write(df.iterrows())
+# st.write(df)
+# st.write(df.iterrows())
 data = {
     row["Farbe"]: {
         "wins": int(row["Siege"]),
@@ -119,7 +119,7 @@ data = {
     }
     for _, row in df.iterrows()
 }
-st.write(data)
+# st.write(data)
 # alte Daten (nur Punkte) automatisch umwandeln
 for color in colors:
     if color not in data:
