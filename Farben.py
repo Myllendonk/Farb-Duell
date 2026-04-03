@@ -110,7 +110,8 @@ data = {}
 df = conn.read()
 # st.write(df.columns)
 # st.write(df.head())
-# st.write(df)
+st.write(df)
+st.write(df.iterrows())
 data = {
     row["Farbe"]: {
         "wins": int(row["Siege"]),
