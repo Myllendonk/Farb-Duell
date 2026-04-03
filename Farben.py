@@ -117,7 +117,7 @@ data = {
     }
     for _, row in df.iterrows()
 }
-st.write(data)
+# st.write(data)
 # alte Daten (nur Punkte) automatisch umwandeln
 for color in colors:
     if color not in data:
