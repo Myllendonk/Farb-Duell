@@ -113,7 +113,7 @@ FILE = "votes.json"
 #     data = {}
 data = {}
 
-df = return conn.read(worksheet="Alle", ttl = 0)
+df = conn.read(ttl=0,worksheet="Alle", )
 # st.write(df.columns)
 # st.write(df.head())
 # st.write(df)
