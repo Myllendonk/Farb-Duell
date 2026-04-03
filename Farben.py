@@ -373,13 +373,19 @@ if not st.session_state.confirm_reset:
 else:
     st.warning("Sicher?")
 
+    delete_sheet = st.checkbox("Auch Spreadsheet zurücksetzen?")
+
     col1, col2 = st.columns(2)
 
     if col1.button("Ja, alles löschen"):
+        # JSON löschen
         if os.path.exists(FILE):
             os.remove(FILE)
-        empty_data = {color: {"wins": 0, "duels": 0} for color in colors}
-        upload_to_gsheet(empty_data)
+
+        if delete_sheet:
+            empty_data = {color: {"wins": 0, "duels": 0} for color in colors}
+            upload_to_gsheet(empty_data)
+
         data = {}
 
         st.session_state.duel = random.sample(colors, 2)
@@ -387,7 +393,11 @@ else:
         st.session_state.show_ranking = False
         st.session_state.confirm_reset = False
 
-        st.success("Alle Stimmen wurden gelöscht.")
+        if delete_sheet:
+            st.success("Alles inkl. Spreadsheet wurde gelöscht.")
+        else:
+            st.success("Lokale Daten wurden gelöscht.")
+
         st.rerun()
 
     if col2.button("Abbrechen"):
