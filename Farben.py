@@ -15,19 +15,19 @@ from streamlit_gsheets import GSheetsConnection
 # Create a connection object.
 conn = st.connection("gsheets", type=GSheetsConnection)
 SPREADSHEET = "https://docs.google.com/spreadsheets/d/1fhzv3tyIaVrXJZcgLIUGChYewlwQRNhcEi3u29-vWNY/edit?pli=1&gid=0#gid=0"
-try:
-    df = conn.read(spreadsheet=SPREADSHEET)
+# try:
+#     df = conn.read(spreadsheet=SPREADSHEET)
 
-    data = {
-        row["Farbe"]: {
-            "wins": int(row["Siege"]),
-            "duels": int(row["Duelle"])
-        }
-        for _, row in df.iterrows()
-    }
+#     data = {
+#         row["Farbe"]: {
+#             "wins": int(row["Siege"]),
+#             "duels": int(row["Duelle"])
+#         }
+#         for _, row in df.iterrows()
+#     }
 
-except Exception:
-    data = {}
+# except Exception:
+#     data = {}
 def save_to_gsheet(data):
     df = pd.DataFrame([
         {
@@ -120,7 +120,15 @@ FILE = "votes.json"
 #         data = json.load(f)
 # else:
 #     data = {}
+df = conn.read(spreadsheet=SPREADSHEET)
 
+data = {
+    row["Farbe"]: {
+        "wins": int(row["Siege"]),
+        "duels": int(row["Duelle"])
+    }
+    for _, row in df.iterrows()
+}
 # alte Daten (nur Punkte) automatisch umwandeln
 for color in colors:
     if color not in data:
