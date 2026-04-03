@@ -3,4 +3,4 @@ matplotlib
 pandas
 streamlit-extras
 colormath
-streamlit-gsheets
+st-gsheets-connection
