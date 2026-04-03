@@ -14,25 +14,7 @@ from streamlit_gsheets import GSheetsConnection
 
 # Create a connection object.
 conn = st.connection("gsheets", type=GSheetsConnection)
-SPREADSHEET = "https://docs.google.com/spreadsheets/d/1fhzv3tyIaVrXJZcgLIUGChYewlwQRNhcEi3u29-vWNY/edit?pli=1&gid=0#gid=0"
-def save_to_gsheet(data):
-    df = pd.DataFrame([
-        {
-            "Farbe": color,
-            "Punkte": data[color]["wins"],
-            "Duelle": data[color]["duels"],
-            "HEX": mcolors.XKCD_COLORS["xkcd:" + color],
-            "Quote": (
-            (data[color]["wins"] + data[color]["duels"]) / (2 * data[color]["duels"])
-            if data[color]["duels"] > 0 else 0)
-        }
-        for color in data
-    ])
 
-    conn.update(
-        data=df,
-        worksheet="Alle",
-    )
 
 np.asscalar = lambda x: x.item()
 warnings.filterwarnings("ignore")
@@ -106,26 +88,11 @@ colors = filtered_colors
 FILE = "votes.json"
 
 # ---------- Stimmen laden ----------
-# if os.path.exists(FILE):
-#     with open(FILE, "r") as f:
-#         data = json.load(f)
-# else:
-#     data = {}
-data = {}
-
-df = conn.read(ttl=0,worksheet="Alle", )
-# st.write(df.columns)
-# st.write(df.head())
-# st.write(df)
-# st.write(df.iterrows())
-data = {
-    row["Farbe"]: {
-        "wins": int(row["Punkte"]),
-        "duels": int(row["Duelle"])
-    }
-    for _, row in df.iterrows()
-}
-# st.write(data)
+if os.path.exists(FILE):
+    with open(FILE, "r") as f:
+        data = json.load(f)
+else:
+    data = {}
 # alte Daten (nur Punkte) automatisch umwandeln
 for color in colors:
     if color not in data:
@@ -210,9 +177,8 @@ if vote1:
     data[c1]["duels"] += 1
     data[c2]["duels"] += 1
 
-    # with open(FILE, "w") as f:
-    #     json.dump(data, f)
-    save_to_gsheet(data)
+    with open(FILE, "w") as f:
+        json.dump(data, f)
     st.session_state.duel = random.sample(colors, 2)
     st.rerun()
 
@@ -222,9 +188,8 @@ if vote2:
     data[c2]["duels"] += 1
     data[c1]["duels"] += 1
 
-    # with open(FILE, "w") as f:
-    #     json.dump(data, f)
-    save_to_gsheet(data)
+    with open(FILE, "w") as f:
+        json.dump(data, f)
     st.session_state.duel = random.sample(colors, 2)
     st.rerun()
 
@@ -311,36 +276,91 @@ st.write("")
 st.markdown("---")
 st.markdown("### Datenverwaltung")
 
-json_data = json.dumps(data, indent=2)
-st.download_button(
-    label="Ergebnis als JSON herunterladen",
-    data=json_data,
-    file_name="farben_ranking.json",
-    mime="application/json",
-)
-st.markdown("Upload")
+# json_data = json.dumps(data, indent=2)
+# st.download_button(
+#     label="Ergebnis als JSON herunterladen",
+#     data=json_data,
+#     file_name="farben_ranking.json",
+#     mime="application/json",
+# )
+# st.markdown("Upload")
 
-uploaded_file = st.file_uploader("JSON wieder laden", type=["json"])
+# uploaded_file = st.file_uploader("JSON wieder laden", type=["json"])
 
-if uploaded_file is not None:
-    try:
-        new_data = json.load(uploaded_file)
+# if uploaded_file is not None:
+#     try:
+#         new_data = json.load(uploaded_file)
 
-        # Sicherheit: prüfen ob Format stimmt
-        for color in new_data:
-            if "wins" not in new_data[color] or "duels" not in new_data[color]:
-                st.error("Ungültige Datei – falsches Format.")
-                st.stop()
+#         # Sicherheit: prüfen ob Format stimmt
+#         for color in new_data:
+#             if "wins" not in new_data[color] or "duels" not in new_data[color]:
+#                 st.error("Ungültige Datei – falsches Format.")
+#                 st.stop()
 
-        with open(FILE, "w") as f:
-            json.dump(new_data, f)
+#         with open(FILE, "w") as f:
+#             json.dump(new_data, f)
 
-        st.success("Daten erfolgreich geladen!")
-        st.rerun()
+#         st.success("Daten erfolgreich geladen!")
+#         st.rerun()
+def upload_to_gsheet(data):
+    df = pd.DataFrame([
+        {
+            "Farbe": color,
+            "Punkte": data[color]["wins"],
+            "Duelle": data[color]["duels"],
+            "HEX": mcolors.XKCD_COLORS["xkcd:" + color],
+            "Quote": (
+                (data[color]["wins"] + data[color]["duels"]) / (2 * data[color]["duels"])
+                if data[color]["duels"] > 0 else 0
+            )
+        }
+        for color in data
+    ])
 
+    conn.update(data=df, worksheet="Alle")
+def download_from_gsheet():
+    df = conn.read(worksheet="Alle")
+
+    if df is None or df.empty:
+        return {}
+
+    return (
+        df.fillna(0)
+        .set_index("Farbe")[["Punkte", "Duelle"]]
+        .rename(columns={"Punkte": "wins", "Duelle": "duels"})
+        .astype(int)
+        .to_dict("index")
+    )
     except Exception:
         st.error("Datei konnte nicht gelesen werden.")
+st.markdown("### 🔄 Synchronisation")
 
+col1, col2 = st.columns(2)
+
+# Upload
+if col1.button("⬆️ In Spreadsheet speichern"):
+    try:
+        upload_to_gsheet(data)
+        st.success("Daten ins Spreadsheet hochgeladen!")
+    except Exception as e:
+        st.error(f"Fehler beim Upload: {e}")
+
+# Download
+if col2.button("⬇️ Aus Spreadsheet laden"):
+    try:
+        new_data = download_from_gsheet()
+
+        if new_data:
+            with open(FILE, "w") as f:
+                json.dump(new_data, f)
+
+            st.success("Daten aus Spreadsheet geladen!")
+            st.rerun()
+        else:
+            st.warning("Spreadsheet ist leer.")
+
+    except Exception as e:
+        st.error(f"Fehler beim Laden: {e}")
 if "confirm_reset" not in st.session_state:
     st.session_state.confirm_reset = False
 
