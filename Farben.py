@@ -360,6 +360,7 @@ else:
 
         st.success("Alle Stimmen wurden gelöscht.")
         st.rerun()
+        st.write(data)
 
     if col2.button("Abbrechen"):
         st.session_state.confirm_reset = False
