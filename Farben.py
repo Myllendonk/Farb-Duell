@@ -114,7 +114,7 @@ FILE = "votes.json"
 data = {}
 @st.cache_data(ttl=5)
 def load_data():
-    return conn.read(worksheet="Marie")
+    return conn.read(worksheet="Alle")
 
 df = load_data()
 # st.write(df.columns)
