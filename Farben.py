@@ -121,7 +121,7 @@ FILE = "votes.json"
 # else:
 #     data = {}
 SPREADSHEET = "https://docs.google.com/spreadsheets/d/1fhzv3tyIaVrXJZcgLIUGChYewlwQRNhcEi3u29-vWNY/edit?pli=1&gid=0#gid=0"
-df = conn.read(spreadsheet=SPREADSHEET)
+df = conn.read()
 st.write(df.columns)
 st.write(df.head())
 st.write(df)
