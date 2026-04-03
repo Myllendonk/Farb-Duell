@@ -350,6 +350,7 @@ if col2.button("⬇️ Aus Spreadsheet laden"):
         new_data = download_from_gsheet()
 
         if new_data:
+            st.write(new_data)
             with open(FILE, "w") as f:
                 json.dump(new_data, f)
 
