@@ -26,7 +26,8 @@ def save_to_gsheet(data):
     ])
 
     conn.update(
-        data=df
+        data=df,
+        worksheet="Alle",
     )
 
 np.asscalar = lambda x: x.item()
@@ -107,7 +108,7 @@ FILE = "votes.json"
 # else:
 #     data = {}
 data = {}
-df = conn.read(ttl=0 )
+df = conn.read(ttl=0,worksheet="Alle", )
 # st.write(df.columns)
 # st.write(df.head())
 # st.write(df)
