@@ -319,6 +319,7 @@ def upload_to_gsheet(data):
 
     conn.update(data=df, worksheet="Alle")
 def download_from_gsheet():
+    st.write("Downloading")
     df = conn.read(worksheet="Alle")
 
     if df is None or df.empty:
