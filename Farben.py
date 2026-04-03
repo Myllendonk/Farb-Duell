@@ -117,6 +117,7 @@ data = {
     }
     for _, row in df.iterrows()
 }
+data = {}
 st.write(data)
 # alte Daten (nur Punkte) automatisch umwandeln
 for color in colors:
