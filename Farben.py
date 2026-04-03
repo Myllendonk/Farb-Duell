@@ -353,6 +353,8 @@ else:
     if col1.button("Ja, alles löschen"):
         if os.path.exists(FILE):
             os.remove(FILE)
+        empty_data = {color: {"wins": 0, "duels": 0} for color in colors}
+        save_to_gsheet(empty_data)
 
         st.session_state.duel = random.sample(colors, 2)
         st.session_state.duels = {c: 0 for c in colors}
