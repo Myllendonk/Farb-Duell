@@ -216,7 +216,6 @@ if vote1:
     # with open(FILE, "w") as f:
     #     json.dump(data, f)
     save_to_gsheet(data)
-    load_data.clear()
     df = load_data()
     st.session_state.duel = random.sample(colors, 2)
     st.rerun()
@@ -230,7 +229,6 @@ if vote2:
     # with open(FILE, "w") as f:
     #     json.dump(data, f)
     save_to_gsheet(data)
-    load_data.clear()
     df = load_data()
     st.session_state.duel = random.sample(colors, 2)
     st.rerun()
