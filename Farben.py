@@ -323,7 +323,7 @@ def download_from_gsheet():
 
     if df is None or df.empty:
         return {}
-
+    st.write(df)
     return (
         df.fillna(0)
         .set_index("Farbe")[["Punkte", "Duelle"]]
