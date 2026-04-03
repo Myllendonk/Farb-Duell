@@ -107,7 +107,7 @@ FILE = "votes.json"
 # else:
 #     data = {}
 data = {}
-df = conn.read()
+df = conn.read(ttl=0 )
 # st.write(df.columns)
 # st.write(df.head())
 # st.write(df)
