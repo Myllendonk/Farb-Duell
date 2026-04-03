@@ -28,7 +28,20 @@ try:
 
 except Exception:
     data = {}
+def save_to_gsheet(data):
+    df = pd.DataFrame([
+        {
+            "Farbe": color,
+            "Siege": data[color]["wins"],
+            "Duelle": data[color]["duels"]
+        }
+        for color in data
+    ])
 
+    conn.update(
+        spreadsheet=SPREADSHEET,
+        data=df
+    )
 
 np.asscalar = lambda x: x.item()
 warnings.filterwarnings("ignore")
@@ -102,11 +115,11 @@ colors = filtered_colors
 FILE = "votes.json"
 
 # ---------- Stimmen laden ----------
-if os.path.exists(FILE):
-    with open(FILE, "r") as f:
-        data = json.load(f)
-else:
-    data = {}
+# if os.path.exists(FILE):
+#     with open(FILE, "r") as f:
+#         data = json.load(f)
+# else:
+#     data = {}
 
 # alte Daten (nur Punkte) automatisch umwandeln
 for color in colors:
@@ -293,8 +306,8 @@ st.write("")
 st.markdown("---")
 st.markdown("### Datenverwaltung")
 
-json_data = json.dumps(data, indent=2)
-
+# json_data = json.dumps(data, indent=2)
+save_to_gsheet(data)
 st.download_button(
     label="Ergebnis als JSON herunterladen",
     data=json_data,
