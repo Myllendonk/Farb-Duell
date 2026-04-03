@@ -320,7 +320,7 @@ def upload_to_gsheet(data):
     conn.update(data=df, worksheet="Alle")
 def download_from_gsheet():
     st.write("Downloading")
-    df = conn.read(worksheet="Alle")
+    df = conn.read(worksheet="Alle", ttl = 0)
 
     if df is None or df.empty:
         return {}
@@ -356,7 +356,7 @@ if col2.button("⬇️ Aus Spreadsheet laden"):
                 json.dump(new_data, f)
 
             st.success("Daten aus Spreadsheet geladen!")
-            # st.rerun()
+            st.rerun()
         else:
             st.warning("Spreadsheet ist leer.")
 
