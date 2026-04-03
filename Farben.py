@@ -112,7 +112,7 @@ FILE = "votes.json"
 # else:
 #     data = {}
 data = {}
-@st.cache_data(ttl=5)
+
 def load_data():
     return conn.read(worksheet="Alle")
 
