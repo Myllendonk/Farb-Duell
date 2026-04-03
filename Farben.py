@@ -331,8 +331,7 @@ def download_from_gsheet():
         .astype(int)
         .to_dict("index")
     )
-    except Exception:
-        st.error("Datei konnte nicht gelesen werden.")
+
 st.markdown("### 🔄 Synchronisation")
 
 col1, col2 = st.columns(2)
