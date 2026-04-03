@@ -377,7 +377,7 @@ else:
         if os.path.exists(FILE):
             os.remove(FILE)
         empty_data = {color: {"wins": 0, "duels": 0} for color in colors}
-        upload_to_gsheet(empty_data)
+        # upload_to_gsheet(empty_data)
         data = {}
 
         st.session_state.duel = random.sample(colors, 2)
