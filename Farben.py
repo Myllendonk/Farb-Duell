@@ -123,6 +123,7 @@ FILE = "votes.json"
 df = conn.read(spreadsheet=SPREADSHEET)
 st.write(df.columns)
 st.write(df.head())
+st.write(df)
 data = {
     row["Farbe"]: {
         "wins": int(row["Siege"]),
