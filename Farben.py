@@ -356,7 +356,7 @@ if col2.button("⬇️ Aus Spreadsheet laden"):
                 json.dump(new_data, f)
 
             st.success("Daten aus Spreadsheet geladen!")
-            st.rerun()
+            # st.rerun()
         else:
             st.warning("Spreadsheet ist leer.")
 
