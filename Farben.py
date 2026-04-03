@@ -205,9 +205,9 @@ if vote1:
     data[c1]["duels"] += 1
     data[c2]["duels"] += 1
 
-    with open(FILE, "w") as f:
-        json.dump(data, f)
-
+    # with open(FILE, "w") as f:
+    #     json.dump(data, f)
+    save_to_gsheet(data)
     st.session_state.duel = random.sample(colors, 2)
     st.rerun()
 
@@ -217,9 +217,10 @@ if vote2:
     data[c2]["duels"] += 1
     data[c1]["duels"] += 1
 
-    with open(FILE, "w") as f:
-        json.dump(data, f)
-
+    # with open(FILE, "w") as f:
+    #     json.dump(data, f)
+    save_to_gsheet(data)
+    
     st.session_state.duel = random.sample(colors, 2)
     st.rerun()
 
@@ -306,8 +307,7 @@ st.write("")
 st.markdown("---")
 st.markdown("### Datenverwaltung")
 
-# json_data = json.dumps(data, indent=2)
-save_to_gsheet(data)
+json_data = json.dumps(data, indent=2)
 st.download_button(
     label="Ergebnis als JSON herunterladen",
     data=json_data,
