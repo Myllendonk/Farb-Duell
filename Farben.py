@@ -112,7 +112,11 @@ FILE = "votes.json"
 # else:
 #     data = {}
 data = {}
-df = conn.read(ttl=0,worksheet="Alle", )
+@st.cache_data(ttl=5)
+def load_data():
+    return conn.read(worksheet="Marie")
+
+df = load_data()
 # st.write(df.columns)
 # st.write(df.head())
 # st.write(df)
@@ -212,6 +216,7 @@ if vote1:
     # with open(FILE, "w") as f:
     #     json.dump(data, f)
     save_to_gsheet(data)
+    load_data.clear()
     st.session_state.duel = random.sample(colors, 2)
     st.rerun()
 
@@ -224,7 +229,7 @@ if vote2:
     # with open(FILE, "w") as f:
     #     json.dump(data, f)
     save_to_gsheet(data)
-    
+    load_data.clear()
     st.session_state.duel = random.sample(colors, 2)
     st.rerun()
 
