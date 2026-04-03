@@ -20,7 +20,8 @@ def save_to_gsheet(data):
         {
             "Farbe": color,
             "Siege": data[color]["wins"],
-            "Duelle": data[color]["duels"]
+            "Duelle": data[color]["duels"],
+            "HEX": mcolors.XKCD_COLORS["xkcd:" + color] 
         }
         for color in data
     ])
