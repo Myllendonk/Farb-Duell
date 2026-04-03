@@ -19,9 +19,12 @@ def save_to_gsheet(data):
     df = pd.DataFrame([
         {
             "Farbe": color,
-            "Siege": data[color]["wins"],
+            "Punkte": data[color]["wins"],
             "Duelle": data[color]["duels"],
-            "HEX": mcolors.XKCD_COLORS["xkcd:" + color] 
+            "HEX": mcolors.XKCD_COLORS["xkcd:" + color],
+            "Quote": (
+            (data[color]["wins"] + data[color]["duels"]) / (2 * data[color]["duels"])
+            if data[color]["duels"] > 0 else 0)
         }
         for color in data
     ])
@@ -116,7 +119,7 @@ df = conn.read(ttl=0,worksheet="Alle", )
 # st.write(df.iterrows())
 data = {
     row["Farbe"]: {
-        "wins": int(row["Siege"]),
+        "wins": int(row["Punkte"]),
         "duels": int(row["Duelle"])
     }
     for _, row in df.iterrows()
