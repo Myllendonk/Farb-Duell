@@ -106,6 +106,7 @@ FILE = "votes.json"
 #         data = json.load(f)
 # else:
 #     data = {}
+data = {}
 df = conn.read()
 # st.write(df.columns)
 # st.write(df.head())
@@ -117,7 +118,6 @@ data = {
     }
     for _, row in df.iterrows()
 }
-data = {}
 st.write(data)
 # alte Daten (nur Punkte) automatisch umwandeln
 for color in colors:
